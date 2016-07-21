@@ -155,6 +155,12 @@ static NSString * const detailSegueName = @"RunDetails";
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.activityType = CLActivityTypeFitness;
     
+    // Check for iOS 8 Vs earlier version like iOS7.Otherwise code will
+    // crash on ios 7
+    if ([self.locationManager respondsToSelector:@selector
+         (requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     // Movement threshold for new events.
     self.locationManager.distanceFilter = 10; // meters
     
